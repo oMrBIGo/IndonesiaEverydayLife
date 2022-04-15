@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Indonesia">
         <activity
-            android:name=".RegsterActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
