@@ -1,4 +1,4 @@
-package com.nathit.indonesia;
+package com.nathit.indonesia.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.nathit.indonesia.R;
 
 public class HomeActivity extends AppCompatActivity {
 

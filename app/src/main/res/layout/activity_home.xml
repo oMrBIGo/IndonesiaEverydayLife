@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    tools:context=".HomeActivity">
+
+    tools:context=".Activity.HomeActivity">
 
     <Button
         android:id="@+id/btn_logout"
@@ -15,6 +15,18 @@
         android:textSize="18sp"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="ออกจากระบบ"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="3dp"
+        app:itemRippleColor="@android:color/transparent"
+        android:layout_margin="30dp"
+        app:itemIconSize="30dp"
+        app:labelVisibilityMode="unlabeled"/>
 
 </RelativeLayout>

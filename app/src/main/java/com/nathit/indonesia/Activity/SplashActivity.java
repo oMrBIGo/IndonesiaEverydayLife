@@ -1,11 +1,12 @@
-package com.nathit.indonesia;
+package com.nathit.indonesia.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ImageView;
+
+import com.nathit.indonesia.R;
 
 public class SplashActivity extends AppCompatActivity {
 
