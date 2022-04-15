@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".RegisterActivity">
+    tools:context=".LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/kancha"
-                            android:text="ลงทะเบียน"
+                            android:text="เข้าสู่ระบบ"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="24sp" />
@@ -132,45 +132,7 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/kancha"
-                            android:text="ชื่อ:"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/text_input_name"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            app:boxBackgroundColor="#FAFAFA"
-                            app:boxCornerRadiusBottomEnd="10dp"
-                            app:boxCornerRadiusBottomStart="10dp"
-                            app:boxCornerRadiusTopEnd="10dp"
-                            app:boxCornerRadiusTopStart="10dp"
-                            app:endIconMode="clear_text"
-                            app:endIconTint="#B4B4B4"
-                            app:hintEnabled="false">
-
-                            <!-- TextInputEdittext: input email -->
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/name"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/kancha"
-                                android:hint="กรอกชื่อที่ต้องการ..."
-                                android:inputType="textPersonName"
-                                android:textColor="@color/black"
-                                android:textColorHint="#CDCDCD"
-                                android:textCursorDrawable="@null"
-                                android:textSize="14sp"
-                                tools:ignore="RtlSymmetry" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -212,69 +174,28 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/kancha"
-                            android:text="ยืนยันรหัสผ่าน:"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/text_input_confirmPassword"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            app:boxBackgroundColor="#FAFAFA"
-                            app:boxCornerRadiusBottomEnd="10dp"
-                            app:boxCornerRadiusBottomStart="10dp"
-                            app:boxCornerRadiusTopEnd="10dp"
-                            app:boxCornerRadiusTopStart="10dp"
-                            app:hintEnabled="false"
-                            app:passwordToggleDrawable="@drawable/show_password"
-                            app:passwordToggleEnabled="true"
-                            app:passwordToggleTint="@color/gray">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/confirmPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/kancha"
-                                android:hint="ยืนยันรหัสผ่าน..."
-                                android:inputType="textPassword"
-                                android:textColor="@color/black"
-                                android:textColorHint="#CDCDCD"
-                                android:textCursorDrawable="@null"
-                                android:textSize="14sp"
-                                tools:ignore="RtlSymmetry" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btn_register"
+                        android:id="@+id/btn_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="2dp"
                         android:background="@drawable/button_design"
                         android:backgroundTint="@color/purple_500"
                         android:fontFamily="@font/kancha"
-                        android:text="ยืนยันการสมัครสมาชิก"
+                        android:text="ยืนยันการลงทะเบียน"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_nextToLogin"
+                        android:id="@+id/tv_nextToRegister"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/kancha"
-                        android:text="หากคุณลงทะเบียนไว้แล้ว คลิกที่นี่เพื่อเข้าสู่ระบบ"
+                        android:text="หากคุณยังไม่ได้ลงทะเบียนไว้ คลิกที่นี่เพื่อสมัครสมาชิก"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="14sp" />

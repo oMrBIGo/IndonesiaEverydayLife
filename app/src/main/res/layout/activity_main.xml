@@ -10,18 +10,21 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/logo" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/logo"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="8dp">
 
         <LinearLayout
@@ -34,35 +37,43 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/kancha"
                 android:text="ภาษาอินโดนีเซียในชีวิตประจำวัน"
                 android:textColor="@color/black"
-                android:textSize="22sp" />
+                android:textSize="26sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="8dp">
 
                 <Button
                     android:id="@+id/btn_register"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/button_design"
+                    android:backgroundTint="@color/purple_500"
+                    android:fontFamily="@font/kancha"
                     android:text="สมัครสมาชิก"
-                    android:textSize="16sp"
                     android:textColor="@color/white"
-                    android:backgroundTint="@color/purple_500"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_login"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/button_design"
+                    android:backgroundTint="@color/purple_500"
+                    android:fontFamily="@font/kancha"
                     android:text="เข้าสู่ระบบ"
-                    android:textSize="16sp"
                     android:textColor="@color/white"
-                    android:backgroundTint="@color/purple_500"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

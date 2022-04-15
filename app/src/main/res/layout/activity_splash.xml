@@ -10,16 +10,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical">
 
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/logo"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ยินดีต้อนรับเข้าสู่"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:fontFamily="@font/kancha"
+            android:textSize="26sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ภาษาอินโดนีเซียในชีวิตประจำวัน"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:fontFamily="@font/kancha"
+            android:textSize="24sp"/>
 
     </LinearLayout>
 
