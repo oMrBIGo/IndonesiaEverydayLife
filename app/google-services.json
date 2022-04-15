@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "379653677007",
+    "project_id": "indo-c3882",
+    "storage_bucket": "indo-c3882.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379653677007:android:119170e6c77ac197d67cba",
+        "android_client_info": {
+          "package_name": "com.nathit.indonesia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379653677007-h8jilut8l8euspsvt7rka7rm607lha5c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nathit.indonesia",
+            "certificate_hash": "9af2fb7e0ecab43cd52d1a624f4891824b253989"
+          }
+        },
+        {
+          "client_id": "379653677007-oepdses7c29isvpg2sn01emgjn9ooegm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPIjFfG1-DYSb2Z-bgaBA4Yl8PAt_MMXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379653677007-oepdses7c29isvpg2sn01emgjn9ooegm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
