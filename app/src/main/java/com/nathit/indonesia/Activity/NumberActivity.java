@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.nathit.indonesia.Adapter.CategoryInAdapter;
-import com.nathit.indonesia.Model.CategoryInModel;
+import com.nathit.indonesia.Adapter.NumberAdapter;
+import com.nathit.indonesia.Model.NumberModel;
 import com.nathit.indonesia.R;
 
 import java.util.ArrayList;
@@ -27,10 +27,10 @@ import java.util.List;
 public class NumberActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    CategoryInAdapter categoryInAdapter;
+    NumberAdapter categoryInAdapter;
     ProgressDialog progressDialog;
     FirebaseFirestore db;
-    List<CategoryInModel> categoryInModelList = new ArrayList<>();
+    List<NumberModel> categoryInModelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +50,12 @@ public class NumberActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("กำลังโหลดข้อมูลคำศัพท์...");
+        progressDialog.show();
 
         db = FirebaseFirestore.getInstance();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        categoryInAdapter = new CategoryInAdapter(NumberActivity.this, categoryInModelList);
+        categoryInAdapter = new NumberAdapter(NumberActivity.this, categoryInModelList);
         recyclerView.setAdapter(categoryInAdapter);
 
             db.collection("NUMBER").orderBy("index")
@@ -66,7 +67,7 @@ public class NumberActivity extends AppCompatActivity {
 
                                 for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
 
-                                    CategoryInModel categoryInModel = documentSnapshot.toObject(CategoryInModel.class);
+                                    NumberModel categoryInModel = documentSnapshot.toObject(NumberModel.class);
                                     categoryInModelList.add(categoryInModel);
                                     categoryInAdapter.notifyDataSetChanged();
                                     progressDialog.dismiss();
