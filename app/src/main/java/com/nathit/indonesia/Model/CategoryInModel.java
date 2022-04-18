@@ -1,16 +1,16 @@
 package com.nathit.indonesia.Model;
 
-public class NumberModel {
+public class CategoryInModel {
 
     String cat_title = "";
     String cat_image = "";
     String cat_des = "";
     int index;
 
-    public NumberModel() {
+    public CategoryInModel() {
     }
 
-    public NumberModel(String cat_title, String cat_image, String cat_des, int index) {
+    public CategoryInModel(String cat_title, String cat_image, String cat_des, int index) {
         this.cat_title = cat_title;
         this.cat_image = cat_image;
         this.cat_des = cat_des;

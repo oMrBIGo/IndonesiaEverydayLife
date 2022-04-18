@@ -8,17 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.nathit.indonesia.Adapter.NumberAdapter;
-import com.nathit.indonesia.Model.NumberModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.nathit.indonesia.Adapter.CategoryInAdapter;
+import com.nathit.indonesia.Model.CategoryInModel;
 import com.nathit.indonesia.R;
 
 import java.util.ArrayList;
@@ -27,10 +26,9 @@ import java.util.List;
 public class NumberActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    NumberAdapter categoryInAdapter;
+    CategoryInAdapter categoryInAdapter;
     ProgressDialog progressDialog;
-    FirebaseFirestore db;
-    List<NumberModel> categoryInModelList = new ArrayList<>();
+    List<CategoryInModel> categoryInModelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,29 +50,31 @@ public class NumberActivity extends AppCompatActivity {
         progressDialog.setMessage("กำลังโหลดข้อมูลคำศัพท์...");
         progressDialog.show();
 
-        db = FirebaseFirestore.getInstance();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        categoryInAdapter = new NumberAdapter(NumberActivity.this, categoryInModelList);
-        recyclerView.setAdapter(categoryInAdapter);
 
-            db.collection("NUMBER").orderBy("index")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("CATEGORYS").child("NUMBER");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                categoryInModelList.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    CategoryInModel model = ds.getValue(CategoryInModel.class);
 
-                                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                    categoryInModelList.add(model);
 
-                                    NumberModel categoryInModel = documentSnapshot.toObject(NumberModel.class);
-                                    categoryInModelList.add(categoryInModel);
-                                    categoryInAdapter.notifyDataSetChanged();
-                                    progressDialog.dismiss();
-                                }
-                            }
-                        }
-                    });
+                    categoryInAdapter = new CategoryInAdapter(getApplicationContext(), categoryInModelList);
+                    recyclerView.setAdapter(categoryInAdapter);
+                    progressDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                progressDialog.dismiss();
+            }
+        });
+
     }
 
     int backPressed = 0;

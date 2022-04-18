@@ -11,16 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.nathit.indonesia.Activity.NumberActivity;
-import com.nathit.indonesia.Adapter.NumberAdapter;
-import com.nathit.indonesia.Model.NumberModel;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.nathit.indonesia.Adapter.CategoryInAdapter;
+import com.nathit.indonesia.Adapter.FavoriteAdapter;
+import com.nathit.indonesia.Model.CategoryInModel;
 import com.nathit.indonesia.R;
 
 import java.util.ArrayList;
@@ -33,11 +36,10 @@ public class FavoriteFragment extends Fragment {
     }
 
     RecyclerView recyclerView;
-    NumberAdapter categoryInAdapter;
+    FavoriteAdapter favoriteAdapter;
     ProgressDialog progressDialog;
-    FirebaseFirestore db;
-    List<NumberModel> categoryInModelList = new ArrayList<>();
-
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,35 +47,36 @@ public class FavoriteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("กำลังโหลดข้อมูลคำศัพท์ที่ชื่นชอบ...");
-        progressDialog.show();
-
-        db = FirebaseFirestore.getInstance();
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        categoryInAdapter = new NumberAdapter(getContext(), categoryInModelList);
-        recyclerView.setAdapter(categoryInAdapter);
 
-        db.collection("FAVORITE").orderBy("index")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        String uid = user.getUid();
 
-                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
 
-                                NumberModel categoryInModel = documentSnapshot.toObject(NumberModel.class);
-                                categoryInModelList.add(categoryInModel);
-                                categoryInAdapter.notifyDataSetChanged();
-                                progressDialog.dismiss();
-                            }
-                        }
-                    }
-                });
+        FirebaseRecyclerOptions<CategoryInModel> options =
+                new FirebaseRecyclerOptions.Builder<CategoryInModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("favorite"), CategoryInModel.class)
+                        .build();
+
+
+        favoriteAdapter =new FavoriteAdapter(options,getContext());
+        recyclerView.setAdapter(favoriteAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        favoriteAdapter.startListening();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        favoriteAdapter.stopListening();
     }
 }

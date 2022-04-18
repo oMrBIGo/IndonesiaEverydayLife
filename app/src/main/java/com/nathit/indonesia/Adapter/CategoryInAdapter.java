@@ -22,8 +22,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.nathit.indonesia.Model.NumberModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.nathit.indonesia.Model.CategoryInModel;
 import com.nathit.indonesia.R;
 
 import java.util.ArrayList;
@@ -31,16 +34,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder> {
+public class CategoryInAdapter extends RecyclerView.Adapter<CategoryInAdapter.ViewHolder> {
 
     TextToSpeech toSpeech;
     Context context;
-    List<NumberModel> categoryInAdapterArrayList;
-    FirebaseFirestore db;
-    List<NumberModel> categoryInModelList = new ArrayList<>();
-    NumberAdapter adapter;
+    List<CategoryInModel> categoryInAdapterArrayList;
+    List<CategoryInModel> categoryInModelList = new ArrayList<>();
+    CategoryInAdapter adapter;
+    DatabaseReference databaseReference;
+    FirebaseAuth firebaseAuth;
 
-    public NumberAdapter(Context context, List<NumberModel> categoryInAdapterArrayList) {
+    public CategoryInAdapter(Context context, List<CategoryInModel> categoryInAdapterArrayList) {
         this.context = context;
         this.categoryInAdapterArrayList = categoryInAdapterArrayList;
     }
@@ -85,7 +89,6 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder
         }
 
         private void setData(String des, String image, String title, int index) {
-            db = FirebaseFirestore.getInstance();
             cat_des.setText(des);
             Glide.with(context).load(itemView.getContext()).load(image).apply(new RequestOptions().placeholder(R.drawable.ic_home)).into(cat_image);
             cat_title.setText(title);
@@ -151,60 +154,57 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder
             cat_fav.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addNewCategory(des, image, title, index);
+
+                    AlertDialog.Builder builder=new AlertDialog.Builder(cat_image.getContext());
+                    builder.setTitle("เพิ่มคำศัพท์ที่ชื่นชอบ");
+                    builder.setMessage("คุณต้องการเพิ่มคำศัพท์ที่ชื่นชอบใช่หรือไม่?");
+
+
+                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            addFavorite(des, image, title, index);
+                        }
+                    });
+
+                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+
+                    builder.show();
                 }
             });
         }
 
-        private void addNewCategory(String des, String image, String title, int index) {
+        private void addFavorite(String des, String image, String title, int index) {
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+            firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            String uid = user.getUid();
+            String id = databaseReference.push().getKey();
 
             final Map<String, Object> catData = new ArrayMap<>();
             catData.put("cat_des", des);
             catData.put("cat_image", image);
             catData.put("cat_title", title);
             catData.put("index", index);
-
-            final String cat_id = db.collection("FAVORITE").document().getId();
-
-            db.collection("FAVORITE").document(cat_id)
-                    .set(catData)
+            databaseReference.child(uid).child("favorite").child(id).setValue(catData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-
-                            Map<String, Object> catDoc = new ArrayMap<>();
-                            catDoc.put("cat_des", des);
-                            catDoc.put("cat_image", image);
-                            catDoc.put("cat_title", title);
-                            catDoc.put("index", index);
-
-                            db.collection("FAVORITE").document()
-                                    .update(catDoc)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Toast.makeText(context, "เพิ่มคำศัพท์ที่ชื่นชอบแล้ว", Toast.LENGTH_SHORT).show();
-                                            categoryInModelList.add(new NumberModel(des,image,title,index));
-                                            adapter.notifyDataSetChanged();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(context, "เพิ่มคำศัพท์ที่ชื่นชอบแล้ว", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                            Toast.makeText(context, "เพิ่มคำศัพท์ที่ชื่นชอบแล้ว", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-                    Toast.makeText(context, "ไม่สามารถเพิ่มคำศัพท์ที่ชื่นชอบได้ โปรดตรวจสอบอินเทอร์เน็ตของท่าน แล้วลองใหม่อีกครั้ง!", Toast.LENGTH_SHORT).show();
-                }
-            });
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "ไม่สามารถเพิ่มคำศัพท์ที่ชื่นชอบได้ โปรดตรวจสอบอินเทอร์เน็ตของท่าน แล้วลองใหม่อีกครั้ง!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
-
     }
 
 
