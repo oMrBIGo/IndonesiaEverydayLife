@@ -31,16 +31,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
 
     TextToSpeech toSpeech;
     Context context;
     List<NumberModel> categoryInAdapterArrayList;
     FirebaseFirestore db;
     List<NumberModel> categoryInModelList = new ArrayList<>();
-    NumberAdapter adapter;
+    FavoriteAdapter adapter;
 
-    public NumberAdapter(Context context, List<NumberModel> categoryInAdapterArrayList) {
+    public FavoriteAdapter(Context context, List<NumberModel> categoryInAdapterArrayList) {
         this.context = context;
         this.categoryInAdapterArrayList = categoryInAdapterArrayList;
     }
@@ -72,7 +72,6 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder
 
         TextView cat_title, cat_des;
         ImageView cat_image, cat_sound, cat_sound_off, cat_fav;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -123,7 +122,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder
                     ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
                     if (connectivityManager != null) {
-                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                             NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
                             if (capabilities != null) {
                                 if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
@@ -148,61 +147,6 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder
                 }
             });
 
-            cat_fav.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addNewCategory(des, image, title, index);
-                }
-            });
-        }
-
-        private void addNewCategory(String des, String image, String title, int index) {
-
-            final Map<String, Object> catData = new ArrayMap<>();
-            catData.put("cat_des", des);
-            catData.put("cat_image", image);
-            catData.put("cat_title", title);
-            catData.put("index", index);
-
-            final String cat_id = db.collection("FAVORITE").document().getId();
-
-            db.collection("FAVORITE").document(cat_id)
-                    .set(catData)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-
-                            Map<String, Object> catDoc = new ArrayMap<>();
-                            catDoc.put("cat_des", des);
-                            catDoc.put("cat_image", image);
-                            catDoc.put("cat_title", title);
-                            catDoc.put("index", index);
-
-                            db.collection("FAVORITE").document()
-                                    .update(catDoc)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Toast.makeText(context, "เพิ่มคำศัพท์ที่ชื่นชอบแล้ว", Toast.LENGTH_SHORT).show();
-                                            categoryInModelList.add(new NumberModel(des,image,title,index));
-                                            adapter.notifyDataSetChanged();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(context, "เพิ่มคำศัพท์ที่ชื่นชอบแล้ว", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-                    Toast.makeText(context, "ไม่สามารถเพิ่มคำศัพท์ที่ชื่นชอบได้ โปรดตรวจสอบอินเทอร์เน็ตของท่าน แล้วลองใหม่อีกครั้ง!", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
 
     }
