@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.os.Build;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -64,7 +67,7 @@ public class FavoriteAdapter extends FirebaseRecyclerAdapter<CategoryInModel, Fa
 
     @NonNull
     @Override
-    public FavoriteAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category_layout, parent, false);
         return new viewHolder(view);
     }
@@ -149,10 +152,12 @@ public class FavoriteAdapter extends FirebaseRecyclerAdapter<CategoryInModel, Fa
             });
 
             cat_del.setImageResource(R.drawable.ic_delete);
+            ColorStateList csl = AppCompatResources.getColorStateList(context, R.color.red);
+            ImageViewCompat.setImageTintList(cat_del, csl);
             cat_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder builder=new AlertDialog.Builder(cat_image.getContext());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(cat_image.getContext());
                     builder.setTitle("ยกเลิกคำศัพท์ที่ชื่นชอบ");
                     builder.setMessage("คุณต้องการยกเลิกคำศัพท์ที่ชื่นชอบใช่หรือไม่?");
 
@@ -176,12 +181,24 @@ public class FavoriteAdapter extends FirebaseRecyclerAdapter<CategoryInModel, Fa
             });
         }
 
-        private void deleteCategory(int position) {
+        public void deleteCategory(int position) {
             firebaseAuth = FirebaseAuth.getInstance();
             FirebaseUser user = firebaseAuth.getCurrentUser();
             String uid = user.getUid();
-            FirebaseDatabase.getInstance().getReference("Users").child(uid).child("favorite").child(getRef(position).getKey()).removeValue();
+            FirebaseDatabase.getInstance().getReference("Users").child(uid).child("favorite").child(getRef(position).getKey()).removeValue()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(context, "ยกเลิกคำศัพท์ที่ชื่นชอบแล้ว", Toast.LENGTH_SHORT).show();
 
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "ยกเลิกคำศัพท์ล้มเหลว กรุณาเช็คอินเทอร์เน็ตของท่าน!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 }

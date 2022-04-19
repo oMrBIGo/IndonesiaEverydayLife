@@ -11,13 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.nathit.indonesia.Activity.NumberActivity;
 import com.nathit.indonesia.R;
 
 
 public class HomeFragment extends Fragment {
 
-
+    public static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    public static FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

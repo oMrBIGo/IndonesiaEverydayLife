@@ -132,8 +132,6 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
-
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -175,6 +173,18 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/ForgotPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ลืมรหัสผ่าน"
+                        android:paddingEnd="20dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/kancha"
+                        android:layout_gravity="end"/>
 
                     <Button
                         android:id="@+id/btn_login"

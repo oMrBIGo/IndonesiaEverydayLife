@@ -37,7 +37,6 @@ public class FavoriteFragment extends Fragment {
 
     RecyclerView recyclerView;
     FavoriteAdapter favoriteAdapter;
-    ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 

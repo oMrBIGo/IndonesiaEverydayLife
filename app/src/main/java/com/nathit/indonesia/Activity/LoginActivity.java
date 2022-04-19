@@ -1,18 +1,24 @@
 package com.nathit.indonesia.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
@@ -67,6 +73,48 @@ public class LoginActivity extends AppCompatActivity {
                     dialog.show();
                     loginUser(etEmail, etPassword);
                 }
+            }
+        });
+
+        TextView ForgotPassword = (TextView) findViewById(R.id.ForgotPassword);
+        ForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText editText = new EditText(v.getContext());
+                AlertDialog.Builder forgotPasswordDialog = new AlertDialog.Builder(v.getContext());
+                forgotPasswordDialog.setTitle("คุณลืมรหัสผ่านใช่ไหม?");
+                forgotPasswordDialog.setMessage("กรอกอีเมลของคุณเพื่อรีเซ็ตรหัสผ่านใหม่");
+                forgotPasswordDialog.setView(editText);
+
+                forgotPasswordDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String Email = editText.getText().toString();
+                        firebaseAuth.sendPasswordResetEmail(Email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(LoginActivity.this, "รีเซ็ตลิงก์ที่ส่งไปยังอีเมลของคุณ", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(LoginActivity.this, "ข้อผิดพลาด! ไม่ได้ส่งลิงค์รีเซ็ต" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                });
+
+                forgotPasswordDialog.setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                forgotPasswordDialog.create().show();
             }
         });
     }
