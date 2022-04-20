@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Indonesia">
         <activity
+            android:name=".Activity.QuizListenActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.NumberActivity"
             android:exported="false" />
         <activity

@@ -1,7 +1,5 @@
 package com.nathit.indonesia.Adapter;
 
-import static com.nathit.indonesia.Fragment.HomeFragment.currentUser;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -48,6 +46,7 @@ public class CategoryInAdapter extends FirebaseRecyclerAdapter<CategoryInModel, 
 
     Context context;
     FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
 
     public CategoryInAdapter(@NonNull FirebaseRecyclerOptions<CategoryInModel> options, Context context) {
@@ -100,8 +99,8 @@ public class CategoryInAdapter extends FirebaseRecyclerAdapter<CategoryInModel, 
                 }
             });
 
-            currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            if (currentUser == null) {
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (firebaseUser == null) {
                 cat_fav.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
