@@ -30,7 +30,7 @@ public class QuestionListen {
 
     public static List<QuizListenModel> getQuestions(String selectedName) {
         switch (selectedName) {
-            case "Java":
+            case "แบบฝึกหัดฟังเสียงคำศัพท์":
                 return listenQuiz();
             default:
                 return null;

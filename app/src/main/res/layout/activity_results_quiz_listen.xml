@@ -32,36 +32,50 @@
         android:text="คุณทำแบบฝึกหีดเสร็จเรียบร้อยแล้ว"/>
 
     <LinearLayout
-        android:layout_below="@+id/successTextView"
+        android:id="@+id/answerLiner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
+        android:layout_below="@+id/successTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:layout_centerHorizontal="true">
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/correctAnswers"
-            android:text="คำตอบที่ถูกต้อง : 0"
-            android:fontFamily="@font/kancha"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/kancha"
+            android:text="คำตอบที่ถูกต้อง : 0"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/incorrectAnswers"
-            android:text="คำตอบที่ผิด : 0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/kancha"
-            android:textStyle="bold"
+            android:text="คำตอบที่ผิด : 0"
             android:textColor="@color/black"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/AnswersAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answerLiner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/kancha"
+        android:text="คะแนนรวม : 0"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/startNewQuizBtn"

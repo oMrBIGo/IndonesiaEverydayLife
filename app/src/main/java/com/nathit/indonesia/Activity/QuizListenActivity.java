@@ -4,10 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +28,7 @@ import com.nathit.indonesia.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +52,10 @@ public class QuizListenActivity extends AppCompatActivity {
 
     private String selectOptionByUser = "";
 
+    TextToSpeech toSpeech;
+
+    private ImageView toSpeak;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +72,8 @@ public class QuizListenActivity extends AppCompatActivity {
         option3 = findViewById(R.id.option3);
         option4 = findViewById(R.id.option4);
 
+        toSpeak = findViewById(R.id.toSpeak);
+
         nextBtn = findViewById(R.id.nextBtn);
         selectName = findViewById(R.id.selectName);
 
@@ -70,6 +84,15 @@ public class QuizListenActivity extends AppCompatActivity {
         quizListenModelList = QuestionListen.getQuestions(getSelectedName);
 
         startTimer(timer);
+
+        toSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != TextToSpeech.ERROR) {
+                    toSpeech.setLanguage(new Locale("id", "ID"));
+                }
+            }
+        });
 
         questions.setText((currentQuestionPosition + 1) + "/" + quizListenModelList.size());
         question.setText(quizListenModelList.get(0).getQuestion());
@@ -171,6 +194,48 @@ public class QuizListenActivity extends AppCompatActivity {
             }
         });
 
+        toSpeak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String toSpeak = quizListenModelList.get(currentQuestionPosition).getQuestion();
+                Toast.makeText(QuizListenActivity.this, toSpeak, Toast.LENGTH_SHORT).show();
+                toSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+
+                if (!isNetworkAvailable() == true) {
+                    new AlertDialog.Builder(QuizListenActivity.this)
+                            .setIcon(R.drawable.ic_dialog_alert)
+                            .setTitle("แจ้งเตือน!")
+                            .setMessage("กรุณาเชื่อมต่ออินเทอร์เน็ตเพื่อฟังเสียงคำศัพท์")
+                            .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            }).show();
+                }
+            }
+        });
+
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager != null) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+                if (capabilities != null) {
+                    if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        return true;
+                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        return true;
+                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @SuppressLint("ResourceType")

@@ -64,7 +64,7 @@ public class QuizFragment extends Fragment {
         Btn_QuizListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedName = "Java";
+                selectedName = "แบบฝึกหัดฟังเสียงคำศัพท์";
                 Intent intent = new Intent(getContext(), QuizListenActivity.class);
                 intent.putExtra("selectedTopic", selectedName);
                 startActivity(intent);
