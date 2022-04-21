@@ -13,6 +13,9 @@
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1705" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/drawable/ic_volume_off.xml" value="0.374" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/drawable/item_selector.xml" value="0.1705" />
+        <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/drawable/round_quiz.xml" value="0.1585" />
+        <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/drawable/round_quiz_green.xml" value="0.1585" />
+        <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/drawable/round_quiz_red.xml" value="0.1585" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/drawable/rounded_corner.xml" value="0.1705" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/drawable/show_password.xml" value="0.1" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/activity_home.xml" value="0.33" />
@@ -20,7 +23,9 @@
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/activity_number.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/activity_quiz_listen.xml" value="0.33" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/activity_regster.xml" value="0.25" />
+        <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/activity_results_quiz_listen.xml" value="0.25" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/activity_splash.xml" value="0.33" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/cat_item_layout.xml" value="0.3212962962962963" />
         <entry key="..\:/Users/nathi/Desktop/Android_Dev/Indonesia/app/src/main/res/layout/fragment_favorite.xml" value="0.21574074074074073" />

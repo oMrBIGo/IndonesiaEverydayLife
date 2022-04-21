@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/kancha"
-                    android:text="แบบฝึกหัดเขียนฟังเสียง"
+                    android:text="แบบฝึกหัดฟังเสียงคำศัพท์"
                     android:background="@android:color/transparent"
                     android:textColor="@color/white"
                     android:textSize="20sp"
@@ -93,7 +93,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/kancha"
-                    android:text="แบบฝึกหัดเขียนทายภาพ"
+                    android:text="แบบฝึกหัดทายภาพคำศัพท์"
+                    android:background="@android:color/transparent"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />

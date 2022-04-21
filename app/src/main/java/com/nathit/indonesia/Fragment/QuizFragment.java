@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.nathit.indonesia.Activity.MainActivity;
+import com.nathit.indonesia.Activity.QuizListenActivity;
 import com.nathit.indonesia.Model.QuizListenModel;
 import com.nathit.indonesia.R;
 
@@ -37,10 +39,8 @@ public class QuizFragment extends Fragment {
 
     FirebaseAuth authProfile;
     FirebaseUser firebaseUser;
+    private String selectedName = "";
 
-    public static List<QuizListenModel> quizListenModelArrayList = new ArrayList<>();
-    public static int selected_cat_index = 0;
-    private FirebaseFirestore firebaseFirestore;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,37 +58,28 @@ public class QuizFragment extends Fragment {
         Btn_QuizRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               loadQuizRead();
             }
         });
 
         Btn_QuizListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadQuizListen();
+                selectedName = "Java";
+                Intent intent = new Intent(getContext(), QuizListenActivity.class);
+                intent.putExtra("selectedTopic", selectedName);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
 
         Btn_QuizPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadQuizPicture();
+
             }
         });
 
         return view;
     }
 
-    private void loadQuizRead() {
-
-    }
-
-    private void loadQuizListen() {
-        quizListenModelArrayList.clear();
-
-    }
-
-    private void loadQuizPicture() {
-
-    }
 }
