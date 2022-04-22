@@ -22,14 +22,14 @@
         android:id="@+id/successTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
         android:layout_below="@id/congratulationsIcon"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/kancha"
+        android:gravity="center"
+        android:text="คุณทำแบบฝึกหีดเสร็จเรียบร้อยแล้ว"
         android:textColor="@color/black"
         android:textSize="22sp"
-        android:fontFamily="@font/kancha"
-        android:textStyle="bold"
-        android:text="คุณทำแบบฝึกหีดเสร็จเรียบร้อยแล้ว"/>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/answerLiner"
